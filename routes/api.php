@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Api')->group(function (){
+Route::middleware('auth:sanctum')->namespace('Api')->group(function (){
+    Route::resource('/products' , 'ProductController' , ['except'=>'edit']);
     Route::post('/products' , [ProductController::class,'store']);
     Route::get('/product/{id}' , [ProductController::class,'show']);
     Route::put('/product/{id}' , [ProductController::class,'update']);
