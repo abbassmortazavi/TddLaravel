@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductForGet;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -32,9 +33,10 @@ class ProductController extends Controller
         return response()->json(new ProductForGet($product) , 200);
     }
 
-    public function delete($product)
+    public function delete($product): JsonResponse
     {
         $product = Product::findOrFail($product);
+//        dd($product);
         $product->delete();
 
         return response()->json('Deleted SuccessFully!' , 200);

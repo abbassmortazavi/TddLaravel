@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->integer('image')->unsigned()->nullable();
             $table->string('name' , 64);
-            $table->string('slug' , 62)->unique();
+            $table->text('slug')->unique();
             $table->integer('price')->unsigned();
             $table->timestamps();
         });

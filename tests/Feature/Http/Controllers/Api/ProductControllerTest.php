@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
 {
-    use WithFaker , RefreshDatabase;
+    use WithFaker;
     /** @test  */
     public function can_create_a_product()
     {
@@ -130,8 +130,17 @@ class ProductControllerTest extends TestCase
         $res->assertStatus(404);
     }
 
+    /** @test  */
     public function can_delete_product()
     {
+        $this->withoutExceptionHandling();
+        $product = Product::factory()->create();
+        $res = $this->deleteJson("/api/product/$product->id");
 
+        $res->assertStatus(200)
+        ->assertSee(null);
+        $this->assertDatabaseMissing('products' , [
+            'id'=>$product->id
+        ]);
     }
 }
